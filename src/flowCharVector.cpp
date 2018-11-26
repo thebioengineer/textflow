@@ -5,15 +5,24 @@ using namespace Rcpp;
 // [[Rcpp::plugins(cpp11)]]
 
 int getEncPosition(Rcpp::String str_to_find, Rcpp::CharacterVector vector_to_search){
-  int index;
+  int index = -1;
   bool found=false;
-  for(int i =0; i < vector_to_search.size(); i++){ // Loop through input
-    if(vector_to_search(i)==str_to_find){ // break out of loop
+  // for(int i =0; i < vector_to_search.size(); i++){ // Loop through input
+  //   if(vector_to_search(i)==str_to_find){ // break out of loop
+  //     found=true;
+  //     index=i;
+  //     break;
+  //   }
+  // }
+  for(CharacterVector::iterator it = vector_to_search.begin(); it != vector_to_search.end(); ++it) {
+    index+=1;
+    if(*it==str_to_find){ // break out of loop
       found=true;
-      index=i;
+      
       break;
     }
   }
+  
   if(found==false){
     return -1;
   }else {
@@ -24,7 +33,6 @@ int getEncPosition(Rcpp::String str_to_find, Rcpp::CharacterVector vector_to_sea
 
 // [[Rcpp::export]]
 NumericVector flow_Char_Vector(std::string stringEntry, Rcpp::CharacterVector encoding) {
-  if()
   NumericMatrix outputArray(stringEntry.length(),encoding.size());
   int position;
   int stringLength = (int)stringEntry.length();
@@ -39,8 +47,8 @@ NumericVector flow_Char_Vector(std::string stringEntry, Rcpp::CharacterVector en
   return outputArray;
 }
 
-NumericMatrix flow_Char_To_Tensor(NumericVector inputarray, Rcpp::NumericVector nchar){
-
-
-
-}
+// NumericMatrix flow_Char_To_Tensor(NumericVector inputarray, Rcpp::NumericVector nchar){
+// 
+// 
+// 
+// }
